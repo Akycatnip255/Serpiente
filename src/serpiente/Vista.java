@@ -4,6 +4,8 @@
  */
 package serpiente;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Marta Moreno
@@ -13,19 +15,21 @@ public class Vista extends javax.swing.JFrame {
     /**
      * Creates new form Vista
      */
+    PanelSnake panel;
+
     public Vista() {
         initComponents();
-        this.setLocationRelativeTo (null);
-       // se pone el panel de la serpiente antes para que se renderice encima del fondo 
-        PanelSnake panel = new PanelSnake (800,30);
+        this.setLocationRelativeTo(null);
+        // se pone el panel de la serpiente antes para que se renderice encima del fondo 
+        panel = new PanelSnake(800, 30);
         this.add(panel);
-        panel.setBounds(10,10,800,800);//establece limites
+        panel.setBounds(10, 10, 800, 800);//establece limites
         panel.setOpaque(false);
-        
-        PanelFondo fondo = new PanelFondo(800,30);
+
+        PanelFondo fondo = new PanelFondo(800, 30);
         this.add(fondo);
-        fondo.setBounds(10,10,800,800);//establece limites
-        
+        fondo.setBounds(10, 10, 800, 800);//establece limites
+        this.requestFocus(true);
     }
 
     /**
@@ -38,6 +42,11 @@ public class Vista extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,6 +61,25 @@ public class Vista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    //damos listener a los keyPress
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                panel.cambiarDireccion("iz");
+                break;
+            case KeyEvent.VK_RIGHT:
+                panel.cambiarDireccion("de");
+                break;
+            case KeyEvent.VK_UP:
+                panel.cambiarDireccion("ar");
+                break;
+            case KeyEvent.VK_DOWN:
+                panel.cambiarDireccion("ab");
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
